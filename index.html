@@ -1,49 +1,237 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="PEH-Coach Tarver Class: classroom information, math syllabus, class agreement, and interactive math practice.">
+
+  <meta name="description"
+        content="PEH-Coach Tarver Class: classroom information, math syllabus, class agreement, and interactive math practice.">
+
   <title>PEH-Coach Tarver Class | Math</title>
+
   <style>
-    :root { --navy:#14243b; --blue:#3777dd; --light:#f4f7fc; --pink:#d93871; --border:#dce5f1; }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { margin:0; font-family:system-ui,-apple-system,'Segoe UI',sans-serif; color:var(--navy); background:var(--light); line-height:1.6; }
-    header { background:linear-gradient(135deg,#102e5a,#275cae); color:white; padding:72px 18px 58px; text-align:center; }
-    .eyebrow { color:#bbd5ff; font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:.81rem; }
-    h1 { font-size:clamp(2.3rem,6vw,4.5rem); line-height:1.12; margin:12px 0; }
-    header p { font-size:1.15rem; margin:8px auto 24px; max-width:650px; }
-    nav { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
-    nav a, .cta { text-decoration:none; border-radius:100px; display:inline-block; font-weight:700; padding:10px 18px; }
-    nav a { color:#fff; border:1px solid #a9c6f7; }
-    nav a:hover { background:#ffffff22; }
-    main { max-width:1150px; margin:auto; padding:38px 20px 60px; }
-    .intro { text-align:center; margin:0 auto 30px; max-width:760px; }
-    h2 { line-height:1.2; font-size:clamp(1.55rem,3vw,2rem); }
-    .cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; }
-    .card { background:white; border:1px solid var(--border); border-radius:18px; overflow:hidden; box-shadow:0 6px 22px #14243b0b; display:flex; flex-direction:column; }
-    .preview { display:block; width:100%; height:340px; object-fit:cover; object-position:top; background:#fff; border-bottom:1px solid var(--border); }
-    .card-content { padding:22px; display:flex; flex-direction:column; flex-grow:1; }
-    .card h2 { font-size:1.35rem; margin:0 0 8px; }
-    .card p { margin:0 0 20px; color:#4b5e76; }
-    .cta { background:var(--blue); color:white; align-self:flex-start; margin-top:auto; }
-    .cta:hover { background:#245bb4; }
-    .practice { margin-top:32px; background:#e8f0ff; border:1px solid #c8dafa; border-radius:18px; padding:28px; }
-    .practice h2 { margin:0 0 8px; }
-    .practice p { margin:0 0 18px; }
-    .contact { margin-top:32px; padding:20px; text-align:center; }
-    .contact a { color:#245bb4; overflow-wrap:anywhere; }
-    footer { border-top:1px solid var(--border); padding:22px; text-align:center; color:#58677d; font-size:.9rem; }
-    @media(max-width:850px){ .cards { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-    @media(max-width:560px){ .cards { grid-template-columns:1fr; } .preview { height:290px; } header { padding-top:50px; } }
+    :root {
+      --navy: #14243b;
+      --blue: #3777dd;
+      --light: #f4f7fc;
+      --pink: #d93871;
+      --border: #dce5f1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color: var(--navy);
+      background: var(--light);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #102e5a, #275cae);
+      color: white;
+      padding: 72px 18px 58px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      color: #bbd5ff;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: .81rem;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 6vw, 4.5rem);
+      line-height: 1.12;
+      margin: 12px 0;
+    }
+
+    header p {
+      font-size: 1.15rem;
+      margin: 8px auto 24px;
+      max-width: 650px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    nav a,
+    .cta {
+      text-decoration: none;
+      border-radius: 100px;
+      display: inline-block;
+      font-weight: 700;
+      padding: 10px 18px;
+    }
+
+    nav a {
+      color: #fff;
+      border: 1px solid #a9c6f7;
+    }
+
+    nav a:hover {
+      background: #ffffff22;
+    }
+
+    main {
+      max-width: 1150px;
+      margin: auto;
+      padding: 38px 20px 60px;
+    }
+
+    .intro {
+      text-align: center;
+      margin: 0 auto 30px;
+      max-width: 760px;
+    }
+
+    h2 {
+      line-height: 1.2;
+      font-size: clamp(1.55rem, 3vw, 2rem);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 22px #14243b0b;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Show the entire handout without cropping */
+    .preview {
+      display: block;
+      width: 100%;
+      height: 340px;
+      object-fit: contain;
+      object-position: center;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-content {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card h2 {
+      font-size: 1.35rem;
+      margin: 0 0 8px;
+    }
+
+    .card p {
+      margin: 0 0 20px;
+      color: #4b5e76;
+    }
+
+    .cta {
+      background: var(--blue);
+      color: white;
+      align-self: flex-start;
+      margin-top: auto;
+    }
+
+    .cta:hover {
+      background: #245bb4;
+    }
+
+    .practice {
+      margin-top: 32px;
+      background: #e8f0ff;
+      border: 1px solid #c8dafa;
+      border-radius: 18px;
+      padding: 28px;
+    }
+
+    .practice h2 {
+      margin: 0 0 8px;
+    }
+
+    .practice p {
+      margin: 0 0 18px;
+    }
+
+    .contact {
+      margin-top: 32px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .contact a {
+      color: #245bb4;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 22px;
+      text-align: center;
+      color: #58677d;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 850px) {
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .preview {
+        height: 290px;
+      }
+
+      header {
+        padding-top: 50px;
+      }
+    }
   </style>
 </head>
+
 <body>
+
+  <!-- WEBSITE HEADER -->
   <header>
-    <div class="eyebrow">Peter Hyland Empower Academy • Math</div>
+    <div class="eyebrow">
+      Peter Hyland Empower Academy • Math
+    </div>
+
     <h1>PEH-Coach Tarver Class</h1>
-    <p>Welcome! I'm Mr. Tarver, also known as Coach Tarver. Explore our class information, expectations, and math practice resources.</p>
+
+    <p>
+      Welcome! I'm Mr. Tarver, also known as Coach Tarver.
+      Explore our class information, expectations, and
+      math practice resources.
+    </p>
+
     <nav aria-label="Class sections">
       <a href="#about">Meet Your Teacher</a>
       <a href="#syllabus">Syllabus</a>
@@ -51,35 +239,164 @@
       <a href="#practice">Practice</a>
     </nav>
   </header>
+
   <main>
+
+    <!-- WELCOME SECTION -->
     <div class="intro">
       <h2>Welcome to Math Class</h2>
-      <p>In our classroom, questions are encouraged, mistakes are part of learning, and every student has the opportunity to grow.</p>
+
+      <p>
+        In our classroom, questions are encouraged,
+        mistakes are part of learning, and every student
+        has the opportunity to grow.
+      </p>
     </div>
+
+    <!-- CLASSROOM INFORMATION -->
     <div class="cards">
+
+      <!-- MEET COACH TARVER -->
       <article class="card" id="about">
-        <a href="images/meet-coach-tarver.jpg" target="_blank" rel="noopener" aria-label="Open full Meet Coach Tarver handout"><img class="preview" src="meet-coach-tarver.jpg" alt="Meet Coach Tarver welcome and biography handout"></a>
-        <div class="card-content"><h2>Meet Coach Tarver</h2><p>Learn more about your math teacher, teaching philosophy, background, and favorite things.</p><a class="cta" href="images/meet-coach-tarver.jpg" target="_blank" rel="noopener">View Full Page</a></div>
+
+        <a href="meet-coach-tarver.jpg"
+           target="_blank"
+           rel="noopener"
+           aria-label="Open full Meet Coach Tarver handout">
+
+          <img
+            class="preview"
+            src="meet-coach-tarver.jpg"
+            alt="Meet Coach Tarver welcome and biography handout"
+            loading="lazy">
+        </a>
+
+        <div class="card-content">
+          <h2>Meet Coach Tarver</h2>
+
+          <p>
+            Learn more about your math teacher,
+            teaching philosophy, background,
+            and favorite things.
+          </p>
+
+          <a class="cta"
+             href="meet-coach-tarver.jpg"
+             target="_blank"
+             rel="noopener">
+            View Full Page
+          </a>
+        </div>
       </article>
+
+      <!-- MATH SYLLABUS -->
       <article class="card" id="syllabus">
-        <a href="images/math-syllabus.jpg" target="_blank" rel="noopener" aria-label="Open full math syllabus"><img class="preview" src="math-syllabus.jpg" alt="Math syllabus with supplies, expectations, course topics, and classroom policies"></a>
-        <div class="card-content"><h2>Math Syllabus</h2><p>Review course topics, classroom expectations, materials needed, and work policies.</p><a class="cta" href="images/math-syllabus.jpg" target="_blank" rel="noopener">View Full Syllabus</a></div>
+
+        <a href="math-syllabus.jpg"
+           target="_blank"
+           rel="noopener"
+           aria-label="Open full math syllabus">
+
+          <img
+            class="preview"
+            src="math-syllabus.jpg"
+            alt="Math syllabus with course information and expectations"
+            loading="lazy">
+        </a>
+
+        <div class="card-content">
+          <h2>Math Syllabus</h2>
+
+          <p>
+            Review course topics, classroom expectations,
+            materials needed, grading information,
+            and work policies.
+          </p>
+
+          <a class="cta"
+             href="math-syllabus.jpg"
+             target="_blank"
+             rel="noopener">
+            View Full Syllabus
+          </a>
+        </div>
       </article>
+
+      <!-- CLASS AGREEMENT -->
       <article class="card" id="agreement">
-        <a href="images/math-class-agreement.jpg" target="_blank" rel="noopener" aria-label="Open full class agreement"><img class="preview" src="math-class-agreement.jpg" alt="Math class agreement explaining student, family, and teacher responsibilities"></a>
-        <div class="card-content"><h2>Math Class Agreement</h2><p>Understand how students, families, and the teacher will work together for a successful year.</p><a class="cta" href="images/math-class-agreement.jpg" target="_blank" rel="noopener">View Class Agreement</a></div>
+
+        <a href="math-class-agreement.jpg"
+           target="_blank"
+           rel="noopener"
+           aria-label="Open full class agreement">
+
+          <img
+            class="preview"
+            src="math-class-agreement.jpg"
+            alt="Math class agreement"
+            loading="lazy">
+        </a>
+
+        <div class="card-content">
+          <h2>Math Class Agreement</h2>
+
+          <p>
+            Understand how students, families,
+            and the teacher will work together
+            for a successful school year.
+          </p>
+
+          <a class="cta"
+             href="math-class-agreement.jpg"
+             target="_blank"
+             rel="noopener">
+            View Class Agreement
+          </a>
+        </div>
       </article>
+
     </div>
+
+    <!-- INTERACTIVE MATH PRACTICE -->
     <section class="practice" id="practice">
+
       <h2>Interactive Math Practice</h2>
-      <p>Practice Geometry skills in the existing Unit 8 Right Triangles activity. Answer problems, check your work, and review explanations.</p>
-      <a class="cta" href="right_triangles_practice.html">Start Right Triangles Practice</a>
+
+      <p>
+        Practice Geometry skills in our existing
+        Unit 8 Right Triangles activity.
+
+        Answer problems, check your work,
+        and review step-by-step explanations.
+      </p>
+
+      <a class="cta"
+         href="right_triangles_practice.html">
+        Start Right Triangles Practice
+      </a>
+
     </section>
-    <section class="contact" aria-label="Teacher contact">
+
+    <!-- TEACHER CONTACT -->
+    <section class="contact"
+             aria-label="Teacher contact">
+
       <h2>Questions? Contact Coach Tarver</h2>
-      <p><a href="mailto:lester.tarver@gccisd.net">lester.tarver@gccisd.net</a></p>
+
+      <p>
+        <a href="mailto:lester.tarver@gccisd.net">
+          lester.tarver@gccisd.net
+        </a>
+      </p>
+
     </section>
+
   </main>
-  <footer>PEH-Coach Tarver Class • Peter Hyland Empower Academy</footer>
+
+  <!-- FOOTER -->
+  <footer>
+    PEH-Coach Tarver Class • Peter Hyland Empower Academy
+  </footer>
+
 </body>
 </html>
