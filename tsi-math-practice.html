@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TSI Math Practice Test | Coach Tarver</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f0f5fc;color:#14243b;font:16px/1.55 system-ui,sans-serif}header{background:#102e5a;color:white;border-bottom:4px solid #e6ad3b;padding:22px max(18px,calc((100% - 1080px)/2))}header a{color:#dceaff}h1{font-size:clamp(1.65rem,5vw,2.6rem);margin:.25em 0}main{max-width:1120px;margin:auto;padding:22px 18px 48px}.card{background:white;border:1px solid #d5e1ef;border-radius:14px;padding:20px;margin-bottom:16px}h2,h3,p{margin:0 0 12px}.layout{display:grid;grid-template-columns:245px 1fr;gap:16px}.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0}button,select{font:inherit;color:inherit;border:1px solid #9cb4d3;border-radius:8px;padding:8px 11px;background:#fff}button{cursor:pointer;font-weight:650}button:hover:not(:disabled){box-shadow:inset 0 0 0 1px currentColor}button:disabled{opacity:.45;cursor:default}.primary{background:#214f97;color:white}.grid button{padding:6px 0}.grid [aria-current=true]{outline:2px solid #14243b;outline-offset:1px}.answered{background:#e0edff}.correct{background:#def5e7;color:#164d32}.incorrect{background:#ffe6e7;color:#78242b}.muted{color:#465b75;font-size:.92rem}progress{width:100%;height:16px;accent-color:#2254a0}.choice{display:flex;align-items:center;gap:12px;border:1px solid #d5e1ef;border-radius:9px;padding:12px;margin:8px 0;cursor:pointer}.choice:has(:checked){border:2px solid #285ca7;padding:11px}.choice input{accent-color:#285ca7}.controls{margin-top:18px}summary{cursor:pointer;font-weight:700}details[open] summary{margin-bottom:12px}table{width:100%;border-collapse:collapse}th,td{text-align:left;border-bottom:1px solid #d5e1ef;padding:7px}dialog{max-width:min(430px,calc(100vw - 36px));border:1px solid #9cb4d3;border-radius:12px;padding:22px;color:inherit}dialog::backdrop{background:#12274799}fieldset{border:0;padding:0;margin:0;min-width:0}legend{font-weight:700;font-size:1.18rem;padding:0;margin-bottom:8px}#feedback{padding:12px;border-radius:8px;margin-top:14px}#clock{font-variant-numeric:tabular-nums}button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #a36a00;outline-offset:3px}@media(max-width:690px){.layout{display:flex;flex-direction:column}.card{padding:14px}.grid{grid-template-columns:repeat(10,1fr)}.scroll{overflow-x:auto}}@media(max-width:390px){.grid{grid-template-columns:repeat(5,1fr)}}
+</style>
+<header><a href="./#practice">← Coach Tarver Math Class</a><h1>TSI Math Practice Test</h1></header>
+<main>
+<details class="card" id="summary" open><summary>Practice summary</summary><div class="row"><strong id="progressText"></strong><span id="clock"></span></div><progress id="progress" max="20" aria-label="Questions answered"></progress><div id="scores" class="scroll"></div></details>
+<div class="layout">
+<aside class="card"><h2>Questions</h2><label for="filter">Show</label> <select id="filter"><option>All</option><option>Answered</option><option>Unanswered</option><option disabled>Correct</option><option disabled>Incorrect</option></select><nav class="grid" id="grid" aria-label="Jump to question"></nav><p class="muted" id="hint">You can skip questions and return before submitting.</p><button id="reset">Start over</button></aside>
+<section class="card" aria-labelledby="position"><div class="row"><h2 id="position" tabindex="-1"></h2><span class="muted" id="status"></span></div><p class="muted" id="topic"></p><fieldset id="choices"><legend id="prompt"></legend><div id="options"></div></fieldset><div id="feedback" hidden></div><div class="row controls"><button id="previous">Previous</button><button class="primary" id="submit">Submit test</button><button id="next">Next</button></div></section>
+</div>
+<p class="muted">Classroom practice · Your work stays in this browser. <a href="https://accuplacer.collegeboard.org/accuplacer/pdf/tsia2-mathematics-test-specifications.pdf">TSIA2 math topics</a></p>
+</main>
+<dialog id="confirm"><form method="dialog"><h2 id="confirmTitle"></h2><p id="confirmText"></p><div class="row"><button value="cancel" autofocus>Cancel</button><button class="primary" id="confirmAction" value="confirm"></button></div></form></dialog>
+<script>
+"use strict";
+const topics = ["Quantitative Reasoning","Algebraic Reasoning","Geometric and Spatial Reasoning","Probabilistic and Statistical Reasoning"];
+// Each item contains its topic index, prompt, choices, correct choice index, and explanation.
+const questions = [
+[0,"A jacket costs $64. It is discounted by 25%, then 8% sales tax is added to the discounted price. What is the final price?",["$48.00","$50.56","$51.84","$55.68"],2,"Multiply $64 by 0.75 to get $48. Then multiply $48 by 1.08 to get $51.84."],
+[1,"If f(x) = 3x² − 2x + 1, what is f(−2)?",["9","13","15","17"],3,"Substitute −2 for x. The result is 3(4) + 4 + 1 = 17."],
+[2,"A 15-foot ladder rests against a wall. Its base is 9 feet from the wall. How high does it reach?",["12 ft","10 ft","18 ft","24 ft"],0,"The ladder is the hypotenuse. The height is √(15² − 9²) = √144 = 12 feet."],
+[3,"The values 4, 6, 7, 9, and 19 have a median of 7. If 19 changes to 29, what happens to the mean and median?",["Both increase by 2","The mean increases by 2 and the median stays the same","The mean stays the same and the median increases by 2","Both stay the same"],1,"The sum increases by 10 across 5 values, raising the mean by 2. The middle value is still 7."],
+[0,"A printer produces 42 flyers in 3 minutes at a constant rate. How long does it take to print 98 flyers?",["6 min","7 min","8 min","14 min"],1,"The printer makes 42 ÷ 3 = 14 flyers per minute. Divide 98 by 14 to get 7 minutes."],
+[1,"Which values of x satisfy 5 − 2x > 13?",["x > 4","x < 4","x > −4","x < −4"],3,"Subtract 5 to get −2x > 8. Divide by −2 and reverse the inequality to get x < −4."],
+[2,"A rectangular tank is 2.5 feet long, 1.2 feet wide, and 3 feet tall. What is its volume?",["6.7 ft³","7.5 ft³","9 ft³","18 ft³"],2,"Multiply length, width, and height. 2.5 × 1.2 × 3 = 9 cubic feet."],
+[3,"A bag contains 3 red and 5 blue marbles. Two marbles are drawn without replacement. What is the probability that both are red?",["3/28","9/64","1/4","3/8"],0,"Multiply 3/8 for the first draw by 2/7 for the second. The product 6/56 simplifies to 3/28."],
+[0,"Which list is ordered from least to greatest?",["−0.7, −3/4, 0.72, √0.64","−3/4, −0.7, √0.64, 0.72","−3/4, −0.7, 0.72, √0.64","−0.7, −3/4, √0.64, 0.72"],2,"Convert −3/4 to −0.75 and √0.64 to 0.8. Then compare −0.75, −0.7, 0.72, and 0.8."],
+[1,"At a game, 30 tickets were sold. Adult tickets cost $8 and student tickets cost $5. Total sales were $192. How many adult tickets were sold?",["12","14","16","18"],1,"Let a be the adult ticket count. Then 8a + 5(30 − a) = 192, so 3a = 42 and a = 14."],
+[2,"A model car is built at a scale of 1 inch to 2.5 feet. The model is 6.4 inches long. How long is the real car?",["16 ft","12.8 ft","8.9 ft","2.56 ft"],0,"Multiply 6.4 model inches by 2.5 real feet per model inch to get 16 feet."],
+[3,"Four quiz scores are 72, 80, 84, and 88. What fifth score would bring the mean to 82?",["82","84","85","86"],3,"Five scores must sum to 410. The first four sum to 324, so the fifth is 410 − 324 = 86."],
+[0,"A phone plan charges $20 per month plus $4 per gigabyte. What is the maximum number of whole gigabytes you can use and keep the bill at or below $50?",["6","7","8","12"],1,"Solve 20 + 4g ≤ 50 to get g ≤ 7.5. The greatest whole number allowed is 7."],
+[1,"What are the solutions of x² − 7x + 12 = 0?",["−3 and −4","−3 and 4","3 and 4","2 and 6"],2,"Factor as (x − 3)(x − 4). A product is zero when at least one factor is zero."],
+[2,"The point (−3, 5) is reflected across the x-axis and then translated 4 units right. What is the resulting point?",["(1, −5)","(1, 5)","(7, 5)","(−7, −5)"],0,"Reflection across the x-axis changes the sign of y. Then add 4 to x, giving (1, −5)."],
+[3,"Of 80 students surveyed, 48 play a sport. Of those 48 students, 18 also play an instrument. What percentage of students who play a sport also play an instrument?",["22.5%","30%","60%","37.5%"],3,"Use 48 as the denominator because the question is about students who play a sport. 18 ÷ 48 = 0.375 = 37.5%."],
+[0,"A recipe uses 3/4 cup of oats for 2 batches. How many cups are needed for 5 batches?",["1 1/2","1 3/4","1 7/8","2 1/4"],2,"One batch needs 3/8 cup. Five batches need 15/8 cups, or 1 7/8 cups."],
+[1,"A bicycle worth $500 loses 20% of its value each year. What is its value after two years?",["$320","$300","$350","$400"],0,"The bicycle retains 80% of its value each year. Multiply 500 × 0.8² to get $320."],
+[2,"A circle has the equation (x − 2)² + (y + 3)² = 25. What is its center and radius?",["Center (−2, 3), radius 5","Center (2, −3), radius 5","Center (2, −3), radius 25","Center (−2, 3), radius 25"],1,"Compare with (x − h)² + (y − k)² = r². The center is (2, −3) and the radius is √25 = 5."],
+[3,"A student records commute times in minutes: 10, 12, 12, 14, 17, 19, 22, 30. What is the interquartile range?",["7","8.5","10","20"],1,"The lower half has median (12 + 12)/2 = 12. The upper half has median (19 + 22)/2 = 20.5. Subtract to get 8.5."]
+];
+
+const get = id => document.getElementById(id);
+const key = "coachTarverTsiMath-v1";
+const fresh = () => ({answers: Array(questions.length).fill(null), index: 0, start: Date.now(), end: null});
+let state = fresh();
+try {
+  const saved = JSON.parse(localStorage.getItem(key));
+  if (saved?.answers?.length === questions.length &&
+      saved.answers.every(value => value === null || (Number.isInteger(value) && value >= 0 && value < 4)) &&
+      Number.isInteger(saved.index) && saved.index >= 0 && saved.index < questions.length &&
+      Number.isFinite(saved.start) && (saved.end === null || Number.isFinite(saved.end))) state = saved;
+} catch {}
+const save = () => { try { localStorage.setItem(key, JSON.stringify(state)); } catch {} };
+const answered = () => state.answers.filter(answer => answer !== null).length;
+function outcome(i) {
+  if (state.answers[i] === null) return "Unanswered";
+  if (!state.end) return "Answered";
+  return state.answers[i] === questions[i][3] ? "Correct" : "Incorrect";
+}
+function visible() {
+  const filter = get("filter").value;
+  return questions.map((_, i) => i).filter(i => filter === "All" || (filter === "Answered" ? state.answers[i] !== null : outcome(i) === filter));
+}
+function time() {
+  const seconds = Math.max(0, Math.floor(((state.end ?? Date.now()) - state.start) / 1000));
+  get("clock").textContent = "Elapsed " + Math.floor(seconds / 60) + ":" + String(seconds % 60).padStart(2, "0");
+}
+function scoreRow(label, indices) {
+  const correct = indices.filter(i => outcome(i) === "Correct").length;
+  const incorrect = indices.filter(i => outcome(i) === "Incorrect").length;
+  return "<tr><th scope='row'>" + label + "</th><td>" + correct + "</td><td>" + incorrect + "</td><td>" +
+    (indices.length - correct - incorrect) + "</td><td>" + Math.round(100 * correct / indices.length) + "%</td></tr>";
+}
+function renderOverview() {
+  const count = answered();
+  get("progress").value = count;
+  get("progressText").textContent = count + " of " + questions.length + " answered";
+  get("scores").innerHTML = state.end ? "<table><thead><tr><th scope='col'>Topic</th><th scope='col'>Correct</th><th scope='col'>Incorrect</th><th scope='col'>Unanswered</th><th scope='col'>Score</th></tr></thead><tbody>" +
+    scoreRow("Total", questions.map((_, i) => i)) + topics.map((topic, t) =>
+    scoreRow(topic, questions.map((_, i) => i).filter(i => questions[i][0] === t))).join("") + "</tbody></table>" : "";
+  time();
+}
+function renderNavigation() {
+  const matches = visible();
+  const position = matches.indexOf(state.index);
+  get("grid").replaceChildren(...matches.map(i => {
+    const button = document.createElement("button");
+    const result = outcome(i);
+    button.textContent = i + 1;
+    button.className = result.toLowerCase();
+    button.setAttribute("aria-label", "Question " + (i + 1) + ", " + result.toLowerCase());
+    if (i === state.index) button.setAttribute("aria-current", "true");
+    button.onclick = () => go(i);
+    return button;
+  }));
+  get("hint").textContent = matches.length === 0 ? "No questions match this filter." :
+    state.end ? "Select a question to review the answer and explanation." : "You can skip questions and return before submitting.";
+  get("previous").disabled = position <= 0;
+  get("next").disabled = position < 0 || position === matches.length - 1;
+}
+function render() {
+  const i = state.index;
+  const [topic, prompt, options, correct, explanation] = questions[i];
+  get("position").textContent = "Question " + (i + 1) + " of " + questions.length;
+  get("topic").textContent = topics[topic];
+  get("status").textContent = outcome(i);
+  get("prompt").textContent = prompt;
+  get("options").replaceChildren(...options.map((option, index) => {
+    const label = document.createElement("label");
+    label.className = "choice";
+    if (state.end && index === correct) label.classList.add("correct");
+    if (state.end && index === state.answers[i] && index !== correct) label.classList.add("incorrect");
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = "answer";
+    input.checked = state.answers[i] === index;
+    input.disabled = Boolean(state.end);
+    input.onchange = () => {
+      state.answers[i] = index;
+      save();
+      get("status").textContent = outcome(i);
+      renderOverview();
+      renderNavigation();
+    };
+    const text = document.createElement("span");
+    text.textContent = String.fromCharCode(65 + index) + ". " + option +
+      (state.end && index === correct ? " · Correct answer" : "") +
+      (state.end && index === state.answers[i] ? " · Your answer" : "");
+    label.append(input, text);
+    return label;
+  }));
+  const feedback = get("feedback");
+  feedback.hidden = !state.end;
+  feedback.className = outcome(i) === "Correct" ? "correct" : "answered";
+  feedback.textContent = explanation;
+  get("submit").hidden = Boolean(state.end);
+  [...get("filter").options].slice(3).forEach(option => { option.disabled = !state.end; });
+  renderOverview();
+  renderNavigation();
+}
+function go(i) {
+  state.index = i;
+  save();
+  render();
+  get("position").focus();
+}
+function step(delta) {
+  const matches = visible();
+  const target = matches[matches.indexOf(state.index) + delta];
+  if (target !== undefined) go(target);
+}
+get("previous").onclick = () => step(-1);
+get("next").onclick = () => step(1);
+get("filter").onchange = () => {
+  const matches = visible();
+  if (matches.length && !matches.includes(state.index)) {
+    state.index = matches[0];
+    save();
+  }
+  render();
+};
+const dialog = get("confirm");
+let action;
+function confirm(title, message, button, callback) {
+  get("confirmTitle").textContent = title;
+  get("confirmText").textContent = message;
+  get("confirmAction").textContent = button;
+  action = callback;
+  dialog.returnValue = "";
+  dialog.showModal();
+}
+dialog.addEventListener("close", () => { if (dialog.returnValue === "confirm") action(); });
+get("submit").onclick = () => confirm("Submit practice test?",
+  "You answered " + answered() + " of " + questions.length + " questions. Submit to see your score and explanations.",
+  "Submit and review", () => {
+    state.end = Date.now();
+    get("filter").value = "All";
+    get("summary").open = true;
+    go(state.index);
+    get("summary").querySelector("summary").focus();
+  });
+get("reset").onclick = () => confirm("Start a new attempt?", "This will clear your answers and reset the timer.", "Start over", () => {
+  state = fresh();
+  get("filter").value = "All";
+  get("summary").open = true;
+  go(0);
+});
+save();
+render();
+setInterval(() => { if (!state.end) time(); }, 1000);
+</script>
+</html>
