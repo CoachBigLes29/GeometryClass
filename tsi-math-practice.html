@@ -5,13 +5,14 @@
 <title>TSI Math Practice Test | Coach Tarver</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f0f5fc;color:#14243b;font:16px/1.55 system-ui,sans-serif}header{background:#102e5a;color:white;border-bottom:4px solid #e6ad3b;padding:22px max(18px,calc((100% - 1080px)/2))}header a{color:#dceaff}h1{font-size:clamp(1.65rem,5vw,2.6rem);margin:.25em 0}main{max-width:1120px;margin:auto;padding:22px 18px 48px}.card{background:white;border:1px solid #d5e1ef;border-radius:14px;padding:20px;margin-bottom:16px}h2,h3,p{margin:0 0 12px}.layout{display:grid;grid-template-columns:245px 1fr;gap:16px}.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0}button,select{font:inherit;color:inherit;border:1px solid #9cb4d3;border-radius:8px;padding:8px 11px;background:#fff}button{cursor:pointer;font-weight:650}button:hover:not(:disabled){box-shadow:inset 0 0 0 1px currentColor}button:disabled{opacity:.45;cursor:default}.primary{background:#214f97;color:white}.grid button{padding:6px 0}.grid [aria-current=true]{outline:2px solid #14243b;outline-offset:1px}.answered{background:#e0edff}.correct{background:#def5e7;color:#164d32}.incorrect{background:#ffe6e7;color:#78242b}.muted{color:#465b75;font-size:.92rem}progress{width:100%;height:16px;accent-color:#2254a0}.choice{display:flex;align-items:center;gap:12px;border:1px solid #d5e1ef;border-radius:9px;padding:12px;margin:8px 0;cursor:pointer}.choice:has(:checked){border:2px solid #285ca7;padding:11px}.choice input{accent-color:#285ca7}.controls{margin-top:18px}summary{cursor:pointer;font-weight:700}details[open] summary{margin-bottom:12px}table{width:100%;border-collapse:collapse}th,td{text-align:left;border-bottom:1px solid #d5e1ef;padding:7px}dialog{max-width:min(430px,calc(100vw - 36px));border:1px solid #9cb4d3;border-radius:12px;padding:22px;color:inherit}dialog::backdrop{background:#12274799}fieldset{border:0;padding:0;margin:0;min-width:0}legend{font-weight:700;font-size:1.18rem;padding:0;margin-bottom:8px}#feedback{padding:12px;border-radius:8px;margin-top:14px}#clock{font-variant-numeric:tabular-nums}button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #a36a00;outline-offset:3px}@media(max-width:690px){.layout{display:flex;flex-direction:column}.card{padding:14px}.grid{grid-template-columns:repeat(10,1fr)}.scroll{overflow-x:auto}}@media(max-width:390px){.grid{grid-template-columns:repeat(5,1fr)}}
+#studyHelp{display:grid;gap:8px;margin-top:14px}#studyHelp[hidden]{display:none}#studyHelp details{background:#f0f5fc;border:1px solid #d5e1ef;border-radius:8px;padding:10px 12px}#studyHelp p{margin:0}
 </style>
 <header><a href="./#practice">← Coach Tarver Math Class</a><h1>TSI Math Practice Test</h1></header>
 <main>
 <details class="card" id="summary" open><summary>Practice summary</summary><div class="row"><strong id="progressText"></strong><span id="clock"></span></div><progress id="progress" max="20" aria-label="Questions answered"></progress><div id="scores" class="scroll"></div></details>
 <div class="layout">
 <aside class="card"><h2>Questions</h2><label for="filter">Show</label> <select id="filter"><option>All</option><option>Answered</option><option>Unanswered</option><option disabled>Correct</option><option disabled>Incorrect</option></select><nav class="grid" id="grid" aria-label="Jump to question"></nav><p class="muted" id="hint">You can skip questions and return before submitting.</p><button id="reset">Start over</button></aside>
-<section class="card" aria-labelledby="position"><div class="row"><h2 id="position" tabindex="-1"></h2><span class="muted" id="status"></span></div><p class="muted" id="topic"></p><fieldset id="choices"><legend id="prompt"></legend><div id="options"></div></fieldset><div id="feedback" hidden></div><div class="row controls"><button id="previous">Previous</button><button class="primary" id="submit">Submit test</button><button id="next">Next</button></div></section>
+<section class="card" aria-labelledby="position"><div class="row"><h2 id="position" tabindex="-1"></h2><span class="muted" id="status"></span></div><p class="muted" id="topic"></p><fieldset id="choices"><legend id="prompt"></legend><div id="options"></div></fieldset><div id="studyHelp"><details id="hintPanel"><summary>Show hint</summary><p id="questionHint"></p></details><details id="examplePanel"><summary>Show worked example</summary><p id="questionExample"></p></details></div><div id="feedback" hidden></div><div class="row controls"><button id="previous">Previous</button><button class="primary" id="submit">Submit test</button><button id="next">Next</button></div></section>
 </div>
 <p class="muted">Classroom practice · Your work stays in this browser. <a href="https://accuplacer.collegeboard.org/accuplacer/pdf/tsia2-mathematics-test-specifications.pdf">TSIA2 math topics</a></p>
 </main>
@@ -41,6 +42,89 @@ const questions = [
 [1,"A bicycle worth $500 loses 20% of its value each year. What is its value after two years?",["$320","$300","$350","$400"],0,"The bicycle retains 80% of its value each year. Multiply 500 × 0.8² to get $320."],
 [2,"A circle has the equation (x − 2)² + (y + 3)² = 25. What is its center and radius?",["Center (−2, 3), radius 5","Center (2, −3), radius 5","Center (2, −3), radius 25","Center (−2, 3), radius 25"],1,"Compare with (x − h)² + (y − k)² = r². The center is (2, −3) and the radius is √25 = 5."],
 [3,"A student records commute times in minutes: 10, 12, 12, 14, 17, 19, 22, 30. What is the interquartile range?",["7","8.5","10","20"],1,"The lower half has median (12 + 12)/2 = 12. The upper half has median (19 + 22)/2 = 20.5. Subtract to get 8.5."]
+];
+
+const studyHelp = [
+  [
+    "Apply the discount first. Calculate tax on the new price.",
+    "A $40 item discounted by 10% costs $36. Add 5% tax by multiplying $36 by 1.05 to get $37.80."
+  ],
+  [
+    "Put parentheses around the negative input before squaring.",
+    "If g(x) = 2x² − x + 4, then g(−3) = 2(−3)² − (−3) + 4 = 18 + 3 + 4 = 25."
+  ],
+  [
+    "The ladder is the hypotenuse. Subtract the square of the ground distance from the square of the ladder length.",
+    "A 13-foot ladder with its base 5 feet away reaches √(13² − 5²) = √144 = 12 feet."
+  ],
+  [
+    "Track the change in the total for the mean. Check the middle value for the median.",
+    "In 2, 4, 6, 8, 10, replacing 10 with 20 adds 10 to the total. The mean rises by 10 ÷ 5 = 2, and the median stays 6."
+  ],
+  [
+    "Find how many flyers print in one minute, then use that rate.",
+    "A printer makes 24 flyers in 4 minutes, or 6 per minute. Printing 54 flyers takes 54 ÷ 6 = 9 minutes."
+  ],
+  [
+    "Isolate x. Reverse the inequality when you divide by a negative number.",
+    "For 3 − 4x > 11, subtract 3 to get −4x > 8. Divide by −4 to get x < −2."
+  ],
+  [
+    "Multiply the three dimensions and use cubic units.",
+    "A box that measures 1.5 by 2 by 4 feet holds 1.5 × 2 × 4 = 12 cubic feet."
+  ],
+  [
+    "After the first red marble, reduce both the red count and the total by one.",
+    "With 4 red and 2 blue marbles, the chance of two reds without replacement is (4/6)(3/5) = 2/5."
+  ],
+  [
+    "Convert everything to decimals. Among negative numbers, the one farther from zero is smaller.",
+    "Since −2/3 ≈ −0.667 and √0.81 = 0.9, the order is −2/3, −0.6, 0.85, √0.81."
+  ],
+  [
+    "Use one variable for adult tickets. Subtract that count from the total to get student tickets.",
+    "If 20 tickets cost $6 for adults and $3 for students and bring in $87, then 6a + 3(20 − a) = 87, so a = 9."
+  ],
+  [
+    "Multiply the model length by the number of real feet represented by each inch.",
+    "If 1 inch represents 3 feet, a 4.5-inch model represents 4.5 × 3 = 13.5 feet."
+  ],
+  [
+    "Find the total needed for five scores, then subtract the sum you already have.",
+    "With scores of 70, 75, 85, and 90, a mean of 81 after five quizzes requires 5 × 81 − 320 = 85."
+  ],
+  [
+    "Subtract the base charge from the budget. Divide by the rate and choose the greatest whole number that fits.",
+    "A plan charges $12 plus $5 per unit. A $34 limit allows (34 − 12) ÷ 5 = 4.4 units, so at most 4 whole units."
+  ],
+  [
+    "Find two numbers whose product equals the constant and whose sum equals the x coefficient.",
+    "For x² − 9x + 20 = 0, use −4 and −5. Then (x − 4)(x − 5) = 0, so x is 4 or 5."
+  ],
+  [
+    "Reflection across the x-axis changes the sign of y. Moving right adds to x.",
+    "Reflect (−2, 7) to get (−2, −7). Move 5 units right to get (3, −7)."
+  ],
+  [
+    "Use the number of students who play a sport as your denominator.",
+    "If 12 out of 30 athletes play an instrument, divide 12 by 30 and multiply by 100 to get 40%."
+  ],
+  [
+    "Divide by the original number of batches to find cups per batch, then scale up.",
+    "If 2/3 cup makes 3 batches, each batch needs 2/9 cup. Four batches need 8/9 cup."
+  ],
+  [
+    "Find the percent of value kept each year and multiply by that factor twice.",
+    "A $400 item that loses 10% annually keeps 90% each year. After two years it’s worth $400 × 0.90² = $324."
+  ],
+  [
+    "Compare the equation with (x − h)² + (y − k)² = r². Take the square root of the right side.",
+    "For (x + 4)² + (y − 1)² = 36, the center is (−4, 1) and the radius is 6."
+  ],
+  [
+    "Find the median of each half of the ordered list. Subtract the lower median from the upper median.",
+    "For 1, 3, 5, 7, 9, 11, 13, 15, the lower median is 4 and the upper median is 12. The IQR is 8."
+  ]
 ];
 
 const get = id => document.getElementById(id);
@@ -133,6 +217,11 @@ function render() {
     label.append(input, text);
     return label;
   }));
+  get("studyHelp").hidden = Boolean(state.end);
+  get("hintPanel").open = false;
+  get("examplePanel").open = false;
+  get("questionHint").textContent = studyHelp[i][0];
+  get("questionExample").textContent = studyHelp[i][1];
   const feedback = get("feedback");
   feedback.hidden = !state.end;
   feedback.className = outcome(i) === "Correct" ? "correct" : "answered";
