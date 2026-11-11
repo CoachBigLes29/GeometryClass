@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Warmups | Coach Tarver Math Class</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f7fc;color:#14243b;font:1rem/1.6 system-ui,sans-serif}header{background:#102e5a;color:white;padding:25px max(18px,calc((100% - 850px)/2));border-bottom:4px solid #e6ad3b}header a{color:#e3eeff}h1{margin:.25em 0}nav{display:flex;gap:18px;flex-wrap:wrap}main{max-width:890px;margin:auto;padding:20px 18px 48px}article,form{background:white;border:1px solid #dce5f1;border-radius:12px;padding:16px 20px;margin:12px 0}h2,h3,p{margin:0 0 8px}summary{color:#204d89;cursor:pointer;font-weight:700}details{margin:8px 0;background:#f4f7fc;border-radius:7px;padding:8px 12px}details p{margin:8px 0 0}fieldset{border:0;padding:0;margin:0 0 16px;min-width:0}legend{padding:0;font-weight:650}input,button{font:inherit;padding:8px 12px;border-radius:7px;border:1px solid #7991b2;margin:6px 8px 0 0}button{background:#214f97;color:white;cursor:pointer}button[type=reset]{background:white;color:#14243b}input{max-width:100%;width:185px}a:focus-visible,summary:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid #a36a00;outline-offset:3px}.result{margin:6px 0 0}.correct{color:#165338}.retry{color:#8b2730}
+</style></head><body>
+<header><a href="./">← Coach Tarver Math Class</a><h1>Warmups</h1><nav aria-label="Page sections"><a href="#warmups">Warmup Questions</a><a href="#exit-ticket">Exit Ticket</a><a href="tsi-math-practice.html">TSI Practice Test</a></nav></header>
+<main><section id="warmups"><h2>Warmup Questions</h2><p>Try each problem first. Then reveal the hint and work through the solution together.</p>
+<article><h3>TSI Math · Percent Discount</h3><p>A backpack costs $60. It’s on sale for 25% off. What is the sale price before tax?</p><details><summary>Show hint</summary><p>Find the amount taken off the original price.</p></details><details><summary>Show worked solution</summary><p>25% = ¼. Divide $60 by 4 to get a $15 discount. Then subtract $15 from $60 to get a sale price of $45.</p><p><strong>Discuss</strong> What does the $15 represent? What does the $45 represent?</p></details></article>
+<article><h3>Simple Probability</h3><p>A bag contains 4 red, 3 blue, and 5 green marbles. If you draw one at random, what is the probability of drawing blue?</p><details><summary>Show hint</summary><p>Count the blue marbles, then count all the marbles.</p></details><details><summary>Show worked solution</summary><p>There are 3 blue marbles and 4 + 3 + 5 = 12 total. Divide 3 by 12 to get ¼, or 25%.</p><p><strong>Discuss</strong> Why is 12 the denominator?</p></details></article>
+<article><h3>SOH CAH TOA</h3><p>A ladder makes a 35° angle with the ground. Its foot is 8 feet from the wall. How high does it reach? Round to the nearest tenth.</p><details><summary>Show hint</summary><p>From the 35° angle, label the ground distance adjacent and the wall height opposite. Use degree mode.</p></details><details><summary>Show worked solution</summary><p>TOA means tangent = opposite ÷ adjacent. Write tan(35°) = h/8. Multiply by 8 to get h = 8 × tan(35°) ≈ 5.6 feet.</p><p><strong>Discuss</strong> If you knew the ladder length and wanted the height, which ratio would you use?</p></details></article>
+</section><section id="exit-ticket"><h2>Exit Ticket</h2><p>Try these three questions on your own. Your results appear on this page.</p><form id="ticket">
+<fieldset><legend>1. A pair of shoes costs $80 and is 15% off. What is the sale price before tax?</legend><label for="answer0">Enter dollars</label><br><input id="answer0" inputmode="decimal" required autocomplete="off"><p class="result" id="result0" aria-live="polite"></p></fieldset>
+<fieldset><legend>2. A bag has 2 yellow, 3 purple, and 5 orange counters. What is the probability of drawing a purple counter at random? Give your answer as a percent.</legend><label for="answer1">Enter a percent</label><br><input id="answer1" inputmode="decimal" required autocomplete="off"><p class="result" id="result1" aria-live="polite"></p></fieldset>
+<fieldset><legend>3. A ramp makes a 20° angle with the ground. Its horizontal run is 12 feet. What is its vertical rise? Round to the nearest tenth.</legend><label for="answer2">Enter feet</label><br><input id="answer2" inputmode="decimal" required autocomplete="off"><p class="result" id="result2" aria-live="polite"></p></fieldset>
+<button type="submit">Check answers</button><button type="reset">Start over</button><p id="score" role="status"></p>
+</form></section></main>
+<script>
+const keys = [[68,"15% of $80 is $12. Subtract $12 from $80 to get $68."],[30,"There are 3 purple counters out of 10 total. 3 ÷ 10 = 0.30 = 30%."],[4.4,"Rise is opposite and run is adjacent. Multiply 12 × tan(20°) ≈ 4.37 feet, which rounds to 4.4 feet."]];
+const ticket = document.getElementById("ticket");
+const score = document.getElementById("score");
+function result(index) { return document.getElementById("result" + index); }
+function clearResults() {
+  score.textContent = "";
+  keys.forEach((_, index) => { result(index).textContent = ""; });
+}
+ticket.addEventListener("input", clearResults);
+ticket.addEventListener("reset", clearResults);
+ticket.addEventListener("submit", event => {
+  event.preventDefault();
+  let correct = 0;
+  keys.forEach(([key, explanation], index) => {
+    const raw = document.getElementById("answer" + index).value.trim().replace(/^\$/, "").replace(/%$/, "").trim();
+    const matches = /^\d+(?:\.\d+)?$/.test(raw) && Number(raw) === key;
+    correct += Number(matches);
+    result(index).className = "result " + (matches ? "correct" : "retry");
+    result(index).textContent = (matches ? "Correct. " : "Review this one. ") + explanation;
+  });
+  score.textContent = correct + " of " + keys.length + " correct";
+});
+</script></body></html>
